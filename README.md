@@ -51,7 +51,13 @@ We remove all noise and isolate an image of a rank-one matrix X0 with mn nonzero
 
 ![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/X0.png?raw=true)
 
+Then we vizualize matrix Y0 to see the number of disagreements between original matrix A and X0.
 
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/Y0.png?raw=true)
+
+We call the ADMM solver and visualize the output:
+
+```Matlab
 %% CALL DENSUB SOLVER.
 
 % Initialize parameters and settings.
@@ -73,54 +79,21 @@ else
     fprintf('Algorithm failed to converge within %d iterations.\n', maxiter)
 end
 
+```
+The ADMM solver returns the optimal solutions X and Y. 
+
+It must be noted that matrices X and Y are identical to the actual structures of X0 and Y0. The planted submatrix is recovered.
+
+```Matlab
 % Plot results.
 figure; imagesc(X); hold('on'); title('X'); hold('off')
 figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 ```
 
-After generating the structure `random` containing the random matrix with desired planted structure, we can visually represent the matrix and planted submatrix as two-tone images, where dark pixels correspond to nonzero entries, and light pixels correspond to zero entries, using the following commands.
-
-```R
-
-# Plot sampled G and matrix representations.
-image(random$sampled_matrix, useRaster = TRUE, axes = FALSE, main = "Matrix A")
-image(random$dense_submatrix, useRaster = TRUE, axes = FALSE, main = "Matrix X0")
-image(random$disagreements, useRaster = TRUE, axes = FALSE, main = "Matrix Y0")
-```
-
-Tne vizualization of the randomly generated matrix ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D) helps us to understand its structure. It is clear that ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D) contains a dense ![](https://latex.codecogs.com/gif.latex?50%20%5Ctimes%2040) block (in the bottom left corner).
-
-![Visual representation of randomly generated ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D)](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/Rplot.jpeg?raw=true)
-
-We can remove all noise and isolate an image of a rank-one matrix ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BX0%7D) with ![](https://latex.codecogs.com/gif.latex?mn) nonzero entries.
-
-![Visual representation of dense submatrix](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/Rplot01.jpeg?raw=true)
-
-Then we vizualize matrix ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BY0%7D) to see the number of disagreements between original matrix ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BA%7D) and ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BX0%7D).
-
-![Disagreement between $\mathbf{A}$ and $\mathbf{X_0}$](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/Rplot02.jpeg?raw=true)
-
-We call the ADMM solver and visualize the output using the following commands.
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/X.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/Y.png?raw=true)
 
 
-```R
-#Call ADMM solver
-admm <- densub(G = random$sampled_matrix, m = m, n = n, tau = 0.35, gamma = 6/(sqrt(m*n)*(q-p)), opt_tol = 1.0e-4,maxiter = 500, quiet = TRUE)
-
-
-#Plot results
-image(admm$X, useRaster = TRUE, axes = FALSE, main = "Matrix X")
-image(admm$Y, useRaster = TRUE, axes = FALSE, main = "Matrix Y")
-
-
-```
-
-
-The ADMM solver returns the optimal solutions ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BX%7D) and ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BY%7D). It must be noted that matrices ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BX%7D) and ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BY%7D) are identical to the actual structures of ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BX0%7D) and ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7BY0%7D). The planted submatrix is recovered.
-
-![Optimal solution \mathbf{X}](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/Rplot03.jpeg?raw=true)
-
-![Optimal Solution \mathbf{Y}](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/Rplot04.jpeg?raw=true)
 
 ## Collaboration Network
 The following is a simple example on how one could use the package to analyze the collaboration network found in the JAZZ dataset. It is known that this network contains a cluster of 100 musicians which performed together.
