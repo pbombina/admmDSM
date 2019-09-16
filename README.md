@@ -49,6 +49,7 @@ Tne vizualization of the randomly generated matrix  helps us to understand its s
 
 We remove all noise and isolate an image of a rank-one matrix X0 with mn nonzero entries.
 
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/X0.png?raw=true)
 
 
 %% CALL DENSUB SOLVER.
