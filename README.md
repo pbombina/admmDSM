@@ -4,14 +4,12 @@
 # Introduction
 This is the `Matlab`-code for the paper entitled [Convex optimization for the densest subgraph and densest submatrix problems](https://github.com/bpames/Densest-Submatrix-Paper/blob/master/Manuscript/dsm-arxiv2019.pdf).
 
-The problem of identifying a dense submatrix is a fundamental problem in the  analysis of matrix structure and complex networks. This package provides tools for identifying the densest submatrix of the fixed size in a given graph/matrix using first-order optimization methods.
+The problem of identifying a dense submatrix is a fundamental problem in the  analysis of matrix structure and complex networks. This code provides tools for identifying the densest submatrix of the fixed size in a given graph/matrix using first-order optimization methods.
 
-See the tutorials below to get started.
+See the tutorial below to get started.
 
 # Usage
-This section gives a brief overview of the different functions included in this package.
-
-`Matlab`-archive contains the functions:
+`Matlab`-archive contains the following functions:
 - `plantedsubmatrix.m` generates binary matrix sampled from dense submatrix of particular size
 - `densub.m` ADMM algorithm for our relaxation of the densest subgraph and submatrix problems
 - `mat_shrink.m` soft-threholding operator applied to vector of singular values (used in X-update step of `densub.m`)
@@ -20,24 +18,34 @@ This section gives a brief overview of the different functions included in this 
 We test this package on two different types of data: first, using random matrices sampled from the planted dense m x n submtarix model and, second, real-world collaboration and communication networks.
 
 ## Random matrices
-We first generate a random matrix with noise obscuring the planted submatrix using the function ``plantedsubmatrix``. and then call the function ``densub`` to recover the planted submatrix.
+We generate a random matrix with noise obscuring the planted submatrix using the function ``plantedsubmatrix`` and then call the function ``densub`` to recover the planted submatrix.
 
 ```Matlab
 % Initialize problem sizes and densities
-M = 100;
-N = 200;
-m = 50;
-n = 40;
-p = 0.25;
-q = 0.85;
+M = 100; %number of rows of sampled matrix
+N = 200; %number of columnss of sampled matrix
+m = 50; %number of rows of dense submatrix
+n = 40; %number of columns of dense submatrix
+p = 0.25; %noise density
+q = 0.85; %in-group density
 
 % Make binary matrix with planted mn-submatrix
 [A,X0,Y0] = plantedsubmatrix(M,N,m,n,p,q);
 
+```
+
+After generating the random matrix with desired planted structure, we can visually represent the matrix and planted submatrix as two-tone images, where dark pixels correspond to nonzero entries, and light pixels correspond to zero entries.
+
+```Matlab
 % Plot A and matrix representations
 figure; imagesc(A);  hold('on'); title('A'); hold('off')% plot matrix.
 figure; imagesc(X0);  hold('on'); title('X0'); hold('off')
-figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix rep of submatrix.
+figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix representation of submatrix.
+
+```
+Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block.
+
+
 
 %% CALL DENSUB SOLVER.
 
