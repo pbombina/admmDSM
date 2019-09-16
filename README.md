@@ -61,10 +61,10 @@ We call the ADMM solver and visualize the output:
 %% CALL DENSUB SOLVER.
 
 % Initialize parameters and settings.
-tau = 0.35;
-maxiter = 500;
+tau = 0.35; %regularization parameter
+maxiter = 500; %max number of iterations
 verbose = 1;
-opt_tol = 1e-4;
+opt_tol = 1e-4; %optimal tolernce
 gamma = 6/(sqrt(m*n)*(q-p)); %optimal choice of gamma from paper.
 
 % Call solver.
@@ -96,7 +96,7 @@ figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 
 
 ## Collaboration Network
-The following is a simple example on how one could use the package to analyze the collaboration network found in the JAZZ dataset. It is known that this network contains a cluster of 100 musicians which performed together.
+The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset. It is known that this network contains a cluster of 100 musicians which performed together.
 
 ![JAZZ Network](https://github.com/pbombina/admmDensenstSubmatrix/blob/master/vignettes/0001.jpg?raw=true)
 
