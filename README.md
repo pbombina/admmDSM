@@ -44,7 +44,7 @@ figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix represe
 
 ```
 Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block.
-
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/A.png?raw=true)
 
 
 %% CALL DENSUB SOLVER.
