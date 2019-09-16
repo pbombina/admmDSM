@@ -22,18 +22,47 @@ We test this package on two different types of data: first, using random matrice
 ## Random matrices
 We first generate a random matrix with noise obscuring the planted submatrix using the function ``plantedsubmatrix``. and then call the function ``densub`` to recover the planted submatrix.
 
-```R
-# Initialize problem size and densities
-# You can play around with these parameters
-M <- 100 #number of rows of sampled matrix
-N <- 200 #number of columns of sampled matrix
-m <- 50 #number of rows of dense submatrix
-n <- 40 #number of columns of dense submatrix
-p <- 0.25 # noise density
-q <- 0.85 #in-group density
+```Matlab
+% Initialize problem sizes and densities
+M = 100;
+N = 200;
+m = 50;
+n = 40;
+p = 0.25;
+q = 0.85;
 
-#Make binary matrix with mn-submatrix
-random<-plantedsubmatrix(M = M, N = N,m = m,n = n,p = p,q = q)
+% Make binary matrix with planted mn-submatrix
+[A,X0,Y0] = plantedsubmatrix(M,N,m,n,p,q);
+
+% Plot A and matrix representations
+figure; imagesc(A);  hold('on'); title('A'); hold('off')% plot matrix.
+figure; imagesc(X0);  hold('on'); title('X0'); hold('off')
+figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix rep of submatrix.
+
+%% CALL DENSUB SOLVER.
+
+% Initialize parameters and settings.
+tau = 0.35;
+maxiter = 500;
+verbose = 1;
+opt_tol = 1e-4;
+gamma = 6/(sqrt(m*n)*(q-p)); %optimal choice of gamma from paper.
+
+% Call solver.
+[X,Y,Q, iter] = densub(A,m,n, gamma,tau, opt_tol, maxiter, verbose);
+
+% Display iteration/convergence status
+if iter < maxiter
+    % Converged.
+    fprintf('Algorithm converged after %d iterations.\n', iter) 
+else
+    % Failed to converge.
+    fprintf('Algorithm failed to converge within %d iterations.\n', maxiter)
+end
+
+% Plot results.
+figure; imagesc(X); hold('on'); title('X'); hold('off')
+figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 ```
 
 After generating the structure `random` containing the random matrix with desired planted structure, we can visually represent the matrix and planted submatrix as two-tone images, where dark pixels correspond to nonzero entries, and light pixels correspond to zero entries, using the following commands.
