@@ -2,35 +2,19 @@
 
 
 # Introduction
-This is the `Matlab`-package accompanying the paper [Convex optimization for the densest subgraph and densest submatrix problems](https://github.com/bpames/Densest-Submatrix-Paper/blob/master/Manuscript/dsm-arxiv2019.pdf).
+This is the `Matlab`-code for the paper entitled [Convex optimization for the densest subgraph and densest submatrix problems](https://github.com/bpames/Densest-Submatrix-Paper/blob/master/Manuscript/dsm-arxiv2019.pdf).
 
 The problem of identifying a dense submatrix is a fundamental problem in the  analysis of matrix structure and complex networks. This package provides tools for identifying the densest submatrix of the fixed size in a given graph/matrix using first-order optimization methods.
 
 See the tutorials below to get started.
 
-# Installation
-
-```matlab
-#Install the development version from GitHub:
-# install.packages("remotes")
-remotes::install_github("pbombina/admmDensenstSubmatrix")
-
-```
-To also build the vignettes use:
-
-```r
-#install.packages("remotes")
-remotes::install_github("pbombina/admmDensenstSubmatrix", dependencies = TRUE,
-                         build_vignettes = TRUE)
-
-```
 # Usage
-This section gives a brief overview of the different functions included in this package. For more details use help('function') or doc('function'). 
+This section gives a brief overview of the different functions included in this package.
 
-`R`-package contains the functions:
-- `plantedsubmatrix.R` generates binary matrix sampled from dense submatrix of particular size
-- `densub.R` ADMM algorithm for our relaxation of the densest subgraph and submatrix problems
-- `mat_shrink.R` soft-threholding operator applied to vector of singular values (used in X-update step of `densub.R`)
+`Matlab`-archive contains the functions:
+- `plantedsubmatrix.m` generates binary matrix sampled from dense submatrix of particular size
+- `densub.m` ADMM algorithm for our relaxation of the densest subgraph and submatrix problems
+- `mat_shrink.m` soft-threholding operator applied to vector of singular values (used in X-update step of `densub.m`)
 
 # Examples
 We test this package on two different types of data: first, using random matrices sampled from the planted dense m x n submtarix model and, second, real-world collaboration and communication networks.
