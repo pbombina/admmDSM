@@ -43,7 +43,8 @@ figure; imagesc(X0);  hold('on'); title('X0'); hold('off')
 figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix representation of submatrix.
 
 ```
-Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block.
+Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block (top left corner).
+
 ![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/A.png?raw=true)
 
 
