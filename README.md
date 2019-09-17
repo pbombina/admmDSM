@@ -103,8 +103,8 @@ The following is an example on how one could use the package to analyze the coll
 We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
 
 ```Matlab
-G=ans; %adjacemcy matrix G 
-c=1;
+G=ans; %adjacemcy matrix of JAZZ  dataset 
+m=100;
 n=100;
 tau=0.85;
 opt_tol=1.0e-2;
