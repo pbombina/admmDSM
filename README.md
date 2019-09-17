@@ -45,15 +45,15 @@ figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix represe
 ```
 Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block (top left corner).
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/A.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/A.png?raw=true)
 
 We remove all noise and isolate an image of a rank-one matrix X0 with mn nonzero entries.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/X0.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X0.png?raw=true)
 
 Then we vizualize matrix Y0 to see the number of disagreements between original matrix A and X0.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/Y0.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y0.png?raw=true)
 
 We call the ADMM solver and visualize the output:
 
@@ -90,15 +90,15 @@ figure; imagesc(X); hold('on'); title('X'); hold('off')
 figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 ```
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/X.png?raw=true)
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/Y.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X.png?raw=true)
+![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y.png?raw=true)
 
 
 
 ## Collaboration Network
 The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset. It is known that this network contains a cluster of 100 musicians which performed together.
 
-![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/jazz.png?raw=true)
+![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazz.png?raw=true)
 
 We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
 
