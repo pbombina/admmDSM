@@ -4,6 +4,8 @@
 # Introduction
 This is the `Matlab`-code for the paper entitled [Convex optimization for the densest subgraph and densest submatrix problems](https://github.com/bpames/Densest-Submatrix-Paper/blob/master/Manuscript/dsm-arxiv2019.pdf).
 
+See also [`R`-package](https://github.com/pbombina/admmDensenstSubmatrix).
+
 The problem of identifying a dense submatrix is a fundamental problem in the  analysis of matrix structure and complex networks. This code provides tools for identifying the densest submatrix of the fixed size in a given graph/matrix using first-order optimization methods.
 
 See the tutorial below to get started.
