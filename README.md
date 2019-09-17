@@ -105,21 +105,24 @@ The following is an example on how one could use the package to analyze the coll
 We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
 
 ```Matlab
-A=ans; %adjacemcy matrix of JAZZ  dataset 
-m=100; %clique size or the number of rows of the dense submatrix 
-n=100; clique size of the number of columns of the dense sumbatrix
-tau=0.85; %regularization parameter
-opt_tol=1.0e-2; %optimal tolerance
-verbose=1;
-maxiter=2000; % max number of iterations 
-gamma=8/n; %regularization parameter
+%Initialize problem 
+A = ans; %adjacemcy matrix of JAZZ  dataset 
+m = 100; %clique size or the number of rows of the dense submatrix 
+n = 100; clique size of the number of columns of the dense sumbatrix
+tau = 0.85; %regularization parameter
+opt_tol = 1.0e-2; %optimal tolerance
+verbose = 1;
+maxiter = 2000; % max number of iterations 
+gamma = 8/n; %regularization parameter
 
-%%
 
 tic %start a stopwatch timer to measure performance
+
 %Call ADMM solver 
+
 [X,Y,Q, iter] = densub(A, m, n, gamma,tau, opt_tol, verbose, maxiter); 
-toc
+
+toc %stop a stopwatch timer
  
 %%
 X0=zeros(198,198);
