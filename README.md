@@ -96,26 +96,27 @@ figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 
 
 ## Collaboration Network
-The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset. It is known that this network contains a cluster of 100 musicians which performed together.
+The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see `jazz.txt`). It is known that this network contains a cluster of 100 musicians which performed together.
 
 ![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazz.png?raw=true)
 
 We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
 
 ```Matlab
-G=ans; %adjacemcy matrix of JAZZ  dataset 
-m=100;
-n=100;
-tau=0.85;
-opt_tol=1.0e-2;
+A=ans; %adjacemcy matrix of JAZZ  dataset 
+m=100; %clique size or the number of rows of the dense submatrix 
+n=100; clique size of the number of columns of the dense sumbatrix
+tau=0.85; %regularization parameter
+opt_tol=1.0e-2; %optimal tolerance
 verbose=1;
-maxiter=2000;
-gamma=8/n;
+maxiter=2000; % max number of iterations 
+gamma=8/n; %regularization parameter
 
 %%
 
-tic
-[X,Y,Q, iter] = ADMM_Jazz(G,c, n, gamma,tau, opt_tol, verbose, maxiter);
+tic %start a stopwatch timer to measure performance
+%Call ADMM solver 
+[X,Y,Q, iter] = densub(A, m, n, gamma,tau, opt_tol, verbose, maxiter); 
 toc
  
 %%
@@ -127,8 +128,6 @@ X0(1:100,1:100)=ones(100,100);
 Y0=zeros(198,198);
 Y0(1:100,1:100)=ones(100,100)-G(1:100,1:100);
            
-
-
 %%
 
 C=X-X0;
@@ -143,18 +142,8 @@ if a/b^2<opt_tol
             end
  
 
-
-%% converges in 160  iterations for gamma=3/n
-%%Elapsed time is 1.921933 seconds.
-
-%%converges in 85 iterations for gamma=6/n
-%%Elapsed time is 1.017912 seconds
-
 %%converges in 80 iterations for gamma=8/n
 %%Elapsed time is 1.014918 seconds
-
-
-
 
 ```
 
