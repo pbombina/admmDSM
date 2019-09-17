@@ -2,7 +2,7 @@
 
 
 # Introduction
-This is the `Matlab`-code for the paper entitled [Convex optimization for the densest subgraph and densest submatrix problems](https://github.com/bpames/Densest-Submatrix-Paper/blob/master/Manuscript/dsm-arxiv2019.pdf).
+This is the `Matlab`-code for the paper entitled [Convex optimization for the densest subgraph and densest submatrix problems](https://arxiv.org/abs/1904.03272).
 
 See also [`R`-package](https://github.com/pbombina/admmDensenstSubmatrix).
 
