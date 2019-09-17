@@ -100,43 +100,61 @@ The following is an example on how one could use the package to analyze the coll
 
 ![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/jazz.png?raw=true)
 
-We have already prepared dataset to work with. More details can be found in the provided file `JAZZ_IN_R.R` ( in `vignettes` folder).
+We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
 
-```R
-#Load dataset
-load(file = "JAZZ.RData") 
+```Matlab
+G=ans; %adjacemcy matrix G 
+c=1;
+n=100;
+tau=0.85;
+opt_tol=1.0e-2;
+verbose=1;
+maxiter=2000;
+gamma=8/n;
 
-#Initialize problem size and densities
-G <- new #define matrix G equivalent to JAZZ dataset 
-m <- 100 #clique size or the number of rows of the dense submatrix 
-n <- 100 #clique size of the number of columns of the dense sumbatrix
-tau <- 0.85 #regularization parameter
-opt_tol <- 1.0e-2 #optimal tolerance
-maxiter <- 2000 #number of iterations
-gamma <- 8/n #regularization parameter
+%%
 
-#call ADMM solver
-admm <- densub(G = G, m = m, n = n, tau = tau, gamma = gamma, opt_tol = opt_tol, maxiter=maxiter, quiet = TRUE) 
+tic
+[X,Y,Q, iter] = ADMM_Jazz(G,c, n, gamma,tau, opt_tol, verbose, maxiter);
+toc
+ 
+%%
+X0=zeros(198,198);
+X0(1:100,1:100)=ones(100,100);
 
-# Planted solution X0
-X0 <- matrix(0L, nrow = 198, ncol = 198) #construct rank-one matrix X0
-X0[1:100,1:100] <- matrix(1L, nrow = 100, ncol = 100)#define dense block
+%Get Y
 
-# Planted solution Y0
-Y0 <- matrix(0L, nrow = 198, ncol = 198) #construct matrix for counting disagreements between G and X0
-Y0[1:100,1:100] < matrix(1L,nrow = 100,ncol = 1000)-G[1:100,1:100]  
+Y0=zeros(198,198);
+Y0(1:100,1:100)=ones(100,100)-G(1:100,1:100);
+           
 
-#Check primal and dual residuals
-C <- admm$X-X0 
-a <- norm(C, "F") #Frobenius norm of matrix C 
-b <- norm(X0,"F") #Frobenius norm of matrix X0
-recovery <- matrix(0L,nrow = 1, ncol = 1)#create recovery condition matrix
 
-if (a/b^2<opt_tol){ #Recovery condition 
-recovery = recovery+1
-} else {
-  recovery = 0 
-  }
+%%
+
+C=X-X0;
+a=norm(C, 'fro');
+b=norm(X0,'fro');
+recovery = zeros(1, 1);
+
+if a/b^2<opt_tol
+                recovery=recovery+1;
+            else
+                recovery=0;
+            end
+ 
+
+
+%% converges in 160  iterations for gamma=3/n
+%%Elapsed time is 1.921933 seconds.
+
+%%converges in 85 iterations for gamma=6/n
+%%Elapsed time is 1.017912 seconds
+
+%%converges in 80 iterations for gamma=8/n
+%%Elapsed time is 1.014918 seconds
+
+
+
 
 ```
 
