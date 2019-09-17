@@ -156,7 +156,7 @@ Our algorithm converges to the dense submatrix representing the community of 100
 
 # How to contribute
 - Fork, clone, edit, commit, push, create pull request
-- Use RStudio
+- Use Matlab
 
 # Reporting bugs and other issues
 If you encounter a clear bug, please file a minimal reproducible example on github.
