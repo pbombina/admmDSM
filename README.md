@@ -98,7 +98,7 @@ figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 
 
 ## Collaboration Network
-The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see `jazz.txt`). It is known that this network contains a cluster of 100 musicians which performed together.
+The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see `jazz.txt` in `DEMO` folder). It is known that this network contains a cluster of 100 musicians which performed together.
 
 ![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazz.png?raw=true)
 
