@@ -11,7 +11,7 @@ tau = 0.35; % regularization parameter
 opt_tol = 1e-4; % optimal tolerance
 verbose = 1;
 maxiter = 2000; % max number of iterations 
-gamma = 25/n; % regularization parameter
+gamma = 12/n; % regularization parameter
 
 %% Call DENSUB to solve.
 
