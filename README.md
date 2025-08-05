@@ -47,15 +47,15 @@ figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix represe
 ```
 Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block (top left corner).
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/A.png?raw=true)
+![](DEMO/A.png)
 
 We remove all noise and isolate an image of a rank-one matrix X0 with mn nonzero entries.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X0.png?raw=true)
+![](DEMO/X0.png)
 
 Then we vizualize matrix Y0 to see the number of disagreements between original matrix A and X0.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y0.png?raw=true)
+![](DEMO/Y0.png)
 
 We call the ADMM solver and visualize the output:
 
@@ -92,8 +92,8 @@ figure; imagesc(X); hold('on'); title('X'); hold('off')
 figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 ```
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X.png?raw=true)
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y.png?raw=true)
+![](DEMO/X.png)
+![](DEMO/Y.png)
 
 
 
@@ -101,7 +101,7 @@ figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see [Community Structure in Jazz. Gleiser and Danon. 2003](https://arxiv.org/abs/cond-mat/0307434)).
 This is a social/collaboration network where each pair of musicians are linked if they have performed together. The maximum clique in this network contains 30 musicians.
 
-![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazz.png?raw=true)
+![JAZZ Network](DEMO/jazz.png)
 
 The data is stored as an adjacency list (see `jazz.txt`) which we convert to a dense adjacency matrix using the script `ListIntoAdjMat.m`.
 
@@ -114,7 +114,7 @@ figure; imagesc(jazzA);  hold('on'); title('A'); hold('off')% plot matrix.
 
 This yields the perturbed adjacency matrix given in the following figure.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazzA.png?raw=true)
+![](DEMO/jazzA.png)
 
 We are now ready to try to identify the densest submatrix of size 30 in this adjacency matrix. Here, we set $m=n=30$ in our call to `densub`. 
 
@@ -143,7 +143,7 @@ toc %stop a stopwatch timer
 
 Our algorithm finds the maximum clique, corresponding to the group of musicians indexed by nonzero entries of $X$ visualized below.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazzX.png?raw=true)
+![](DEMO/jazzX.png)
 
 # How to contribute
 - Fork, clone, edit, commit, push, create pull request
