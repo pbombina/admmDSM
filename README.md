@@ -47,15 +47,15 @@ figure; imagesc(Y0);  hold('on'); title('Y0'); hold('off') % plot matrix represe
 ```
 Tne vizualization of the randomly generated matrix  helps us to understand its structure. It is clear that it contains a dense 50 x 40 block (top left corner).
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/A.png?raw=true)
+![](DEMO/A.png)
 
 We remove all noise and isolate an image of a rank-one matrix X0 with mn nonzero entries.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X0.png?raw=true)
+![](DEMO/X0.png)
 
 Then we vizualize matrix Y0 to see the number of disagreements between original matrix A and X0.
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y0.png?raw=true)
+![](DEMO/Y0.png)
 
 We call the ADMM solver and visualize the output:
 
@@ -92,67 +92,58 @@ figure; imagesc(X); hold('on'); title('X'); hold('off')
 figure; imagesc(Y); hold('on'); title('Y'); hold('off')
 ```
 
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/X.png?raw=true)
-![](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/Y.png?raw=true)
+![](DEMO/X.png)
+![](DEMO/Y.png)
 
 
 
 ## Collaboration Network
-The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see `jazz.txt` in `DEMO` folder). It is known that this network contains a cluster of 100 musicians which performed together.
+The following is an example on how one could use the package to analyze the collaboration network found in the JAZZ dataset (see [Community Structure in Jazz. Gleiser and Danon. 2003](https://arxiv.org/abs/cond-mat/0307434)).
+This is a social/collaboration network where each pair of musicians are linked if they have performed together. The maximum clique in this network contains 30 musicians.
 
-![JAZZ Network](https://github.com/pbombina/admmDensestSubmatrix_Matlab/blob/master/DEMO/jazz.png?raw=true)
+![JAZZ Network](DEMO/jazz.png)
 
-We have already prepared dataset to work with. More details can be found in the provided file `ListIntoAdjMat.m`.
+The data is stored as an adjacency list (see `jazz.txt`) which we convert to a dense adjacency matrix using the script `ListIntoAdjMat.m`.
 
 ```Matlab
-%Initialize problem 
-A = ans; %adjacemcy matrix of JAZZ  dataset 
-m = 100; %clique size or the number of rows of the dense submatrix 
-n = 100; clique size of the number of columns of the dense sumbatrix
-tau = 0.85; %regularization parameter
-opt_tol = 1.0e-2; %optimal tolerance
+%% Create adjacency matrix A from jazz.txt.
+ListIntoAdjMat
+jazzA = A + eye(size(A));
+figure; imagesc(jazzA);  hold('on'); title('A'); hold('off')% plot matrix.
+```
+
+This yields the perturbed adjacency matrix given in the following figure.
+
+![](DEMO/jazzA.png)
+
+We are now ready to try to identify the densest submatrix of size 30 in this adjacency matrix. Here, we set $m=n=30$ in our call to `densub`. 
+
+```Matlab
+m = 30; % clique size or the number of rows of the dense submatrix 
+n = 30; % clique size of the number of columns of the dense submatrix
+tau = 0.35; % regularization parameter
+opt_tol = 1e-4; % optimal tolerance
 verbose = 1;
 maxiter = 2000; % max number of iterations 
-gamma = 8/n; %regularization parameter
+gamma = 25/n; % regularization parameter
 
+tic % start a stopwatch timer to measure performance
 
-tic %start a stopwatch timer to measure performance
+% Call ADMM solver 
 
-%Call ADMM solver 
-
-[X,Y,Q, iter] = densub(A, m, n, gamma,tau, opt_tol, verbose, maxiter); 
+[X,Y,Q, iter] = densub(jazzA, m, n, gamma,tau, opt_tol, maxiter, verbose); 
 
 toc %stop a stopwatch timer
  
-%%
-X0=zeros(198,198);
-X0(1:100,1:100)=ones(100,100);
 
-%Get Y
-
-Y0=zeros(198,198);
-Y0(1:100,1:100)=ones(100,100)-G(1:100,1:100);
-           
-%%
-
-C=X-X0;
-a=norm(C, 'fro');
-b=norm(X0,'fro');
-recovery = zeros(1, 1);
-
-if a/b^2<opt_tol
-                recovery=recovery+1;
-            else
-                recovery=0;
-            end
- 
-
-%%converges in 80 iterations for gamma=8/n
-%%Elapsed time is 1.014918 seconds
+%%converges in 90 iterations for gamma=25/n
+%%Elapsed time is 0.442105 seconds.
 
 ```
 
-Our algorithm converges to the dense submatrix representing the community of 100 musicians after 50 iterations.     
+Our algorithm finds the maximum clique, corresponding to the group of musicians indexed by nonzero entries of $X$ visualized below.
+
+![](DEMO/jazzX.png)
 
 # How to contribute
 - Fork, clone, edit, commit, push, create pull request
