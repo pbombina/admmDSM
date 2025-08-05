@@ -1,0 +1,32 @@
+%% Create adjacency matrix A from jazz.txt.
+ListIntoAdjMat
+jazzA = A + eye(size(A));
+figure; imagesc(jazzA);  hold('on'); title('A'); hold('off')% plot matrix.
+
+%% Set problem and solver parameters.
+ 
+m = 30; % clique size or the number of rows of the dense submatrix 
+n = 30; % clique size of the number of columns of the dense submatrix
+tau = 0.35; % regularization parameter
+opt_tol = 1e-4; % optimal tolerance
+verbose = 1;
+maxiter = 2000; % max number of iterations 
+gamma = 25/n; % regularization parameter
+
+%% Call DENSUB to solve.
+
+tic % start a stopwatch timer to measure performance
+
+% Call ADMM solver 
+
+[X,Y,Q, iter] = densub(jazzA, m, n, gamma,tau, opt_tol, maxiter, verbose); 
+
+toc %stop a stopwatch timer
+
+
+%% Plot results.
+figure; imagesc(X); hold('on'); title('X'); hold('off')
+figure; imagesc(Y); hold('on'); title('Y'); hold('off')
+
+
+
